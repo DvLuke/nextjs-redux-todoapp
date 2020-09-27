@@ -1,0 +1,64 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "Mocked todo 1",
+      "completed": false,
+      "pinned": true
+    },
+    {
+      "id": 2,
+      "title": "Mocked todo 2",
+      "completed": false,
+      "pinned": true
+    },
+    {
+      "id": 3,
+      "title": "Mocked todo 3",
+      "completed": true,
+      "pinned": false
+    },
+    {
+      "id": 4,
+      "title": "Mocked todo 4",
+      "completed": true,
+      "pinned": false
+    },
+    {
+      "id": 5,
+      "title": "Mocked todo 5",
+      "completed": false,
+      "pinned": false
+    },
+    {
+      "id": 6,
+      "title": "Mocked todo 6",
+      "completed": false,
+      "pinned": false
+    },
+    {
+      "id": 7,
+      "title": "Mocked todo 7",
+      "completed": false,
+      "pinned": false
+    },
+    {
+      "id": 8,
+      "title": "Mocked todo 8",
+      "completed": false,
+      "pinned": false
+    },
+    {
+      "title": "Mocked todo 9",
+      "pinned": false,
+      "completed": false,
+      "id": 9
+    },
+    {
+      "title": "Mocked todo 10",
+      "pinned": false,
+      "completed": false,
+      "id": 10
+    }
+  ]
+}
