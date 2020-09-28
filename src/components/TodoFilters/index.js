@@ -11,16 +11,37 @@ import CheckedIcon from '@material-ui/icons/CheckBox'
 import useStyles from './styles'
 
 
-export default function TodoFilters({ setFilters, name, error }) {
+export default function TodoFilters({ setFilters, name, error, errorCatcher }) {
   const classes = useStyles();
   const onSelectFilter = name => () => {
     setFilters(name)
   }
+
+  React.useEffect(() => {
+    let timer = null
+    let seconds = 2;
+    if (error) {
+      timer = setInterval(() => {
+        seconds -= 1
+        if (seconds < 0) {
+          clearInterval(timer)
+          errorCatcher('')
+        }
+      }, 1000);
+    }
+    return () => {
+      clearInterval(timer)
+    }
+  }, [error])
+
   return (
     <Box>
       <Divider />
       <Box display="flex" justifyContent="space-between">
-        <Typography color="secondary" className={classes.errorText}>
+        <Typography
+          color="secondary"
+          className={classes.blink}
+        >
           {error}
         </Typography>
         <Box display="flex" justifyContent="flex-start">

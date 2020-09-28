@@ -21,31 +21,39 @@ export const getTodoList = () => async dispatch => {
 
 export const updateTodo = (id, changes) => async dispatch => {
   dispatch(actions.updateTodoRequest())
-  try {
-    const res = await fetch(`${apiUrl}/todos/${id}`, {
-      method: 'PUT',
-      headers,
-      body: JSON.stringify(changes)
-    })
-    const jsonData = await res.json()
-    return dispatch(actions.updateTodoReceive(jsonData))
-  } catch (error) {
-    return dispatch(actions.errorCatcher(error.message))
+  if (changes.title) {
+    try {
+      const res = await fetch(`${apiUrl}/todos/${id}`, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify(changes)
+      })
+      const jsonData = await res.json()
+      return dispatch(actions.updateTodoReceive(jsonData))
+    } catch (error) {
+      return dispatch(actions.errorCatcher(error.message))
+    }
+  } else {
+    return dispatch(actions.errorCatcher('Update todo title is required'))
   }
 }
 
 export const createTodo = values => async dispatch => {
   dispatch(actions.createTodoRequest())
-  try {
-    const res = await fetch(`${apiUrl}/todos`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(values)
-    })
-    const jsonData = await res.json()
-    return dispatch(actions.createTodoReceive(jsonData))
-  } catch (error) {
-    return dispatch(actions.errorCatcher(error.message))
+  if (values.title) {
+    try {
+      const res = await fetch(`${apiUrl}/todos`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(values)
+      })
+      const jsonData = await res.json()
+      return dispatch(actions.createTodoReceive(jsonData))
+    } catch (error) {
+      return dispatch(actions.errorCatcher(error.message))
+    }
+  } else {
+    return dispatch(actions.errorCatcher('Title is required'))
   }
 }
 

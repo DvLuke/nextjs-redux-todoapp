@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import TodoList from '../components/TodoList'
 import { getTodoList } from '../store/actions'
 
@@ -9,8 +10,8 @@ const mapStateToProps = state => ({
     .filter(x => x[state.filters.filter] === undefined ? true : x[state.filters.filter])
 })
 
-const mapDispatchToProps = dispatch => ({
-  getTodoList: () => dispatch(getTodoList())
-})
+const mapDispatchToProps = dispatch => bindActionCreators({
+  getTodoList: () => getTodoList()
+}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList)

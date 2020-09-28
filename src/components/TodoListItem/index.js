@@ -17,8 +17,6 @@ import CancelIcon from '@material-ui/icons/Cancel'
 
 import useStyles from './styles'
 
-
-
 export default function TodoListItem({ item, updateTodo, deleteTodo }) {
   const classes = useStyles()
   const [pinned, setPinned] = React.useState(item.pinned)
@@ -28,12 +26,17 @@ export default function TodoListItem({ item, updateTodo, deleteTodo }) {
 
   const onChangeInput = ({ target: { value } }) => setTitle(value)
   const onChangeEditable = () => setEditable(!editable)
-  const handleSubmitInput = () => {
-    updateTodo(item.id, {
-      ...item,
-      title
-    })
-    setEditable(false)
+  const handleSubmitInput = (event) => {
+    event.preventDefault();
+    if (title) {
+      updateTodo(item.id, {
+        ...item,
+        title
+      })
+      setEditable(false)
+    } else {
+      setTitle(item.title)
+    }
   }
   const onChangeCompleted = () => {
     updateTodo(item.id, {
@@ -82,33 +85,33 @@ export default function TodoListItem({ item, updateTodo, deleteTodo }) {
             className={classes.listItemText}
           />
       }
-        <Tooltip title="Edit" placement="top">
-          <IconButton
-            edge="end"
-            aria-label="edit"
-            onClick={onChangeEditable}
-          >
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Delete" placement="top">
-          <IconButton
-            edge="end"
-            aria-label="delete"
-            onClick={onDelete}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Pin" placement="top">
-          <IconButton
-            edge="end"
-            aria-label="pin"
-            onClick={onChangePinned}
-          >
-            {pinned ? <PinnedIcon /> : <UnpinnedIcon />}
-          </IconButton>
-        </Tooltip>
+      <Tooltip title="Edit" placement="top">
+        <IconButton
+          edge="end"
+          aria-label="edit"
+          onClick={onChangeEditable}
+        >
+          <EditIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Delete" placement="top">
+        <IconButton
+          edge="end"
+          aria-label="delete"
+          onClick={onDelete}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Pin" placement="top">
+        <IconButton
+          edge="end"
+          aria-label="pin"
+          onClick={onChangePinned}
+        >
+          {pinned ? <PinnedIcon /> : <UnpinnedIcon />}
+        </IconButton>
+      </Tooltip>
     </ListItem>
   )
 }
@@ -120,36 +123,40 @@ const EditInput = ({
   onChangeInput,
   classes
 }) => (
-  <Paper
-    component="form"
-    variant="outlined"
-    className={classes.paper}
-    onSubmit={handleSubmitInput}
-  >
-    <InputBase
-      inputProps={{ 'aria-label': 'todo item title' }}
-      className={classes.input}
-      value={title}
-      onChange={onChangeInput}
-    />
-    <Tooltip title="edit todo" placement="top">
-      <IconButton
-        type="submit"
-        aria-label="edit"
-        className={classes.iconButton}
-      >
-        <DoneIcon />
-      </IconButton>
-    </Tooltip>
-    <Tooltip title="cancel edit todo" placement="top">
-      <IconButton
-        type="submit"
-        aria-label="cancel"
-        onClick={onChangeEditable}
-        className={classes.iconButton}
-      >
-        <CancelIcon />
-      </IconButton>
-    </Tooltip>
-  </Paper>
-)
+    <Paper
+      component="form"
+      variant="outlined"
+      className={classes.paper}
+      onSubmit={handleSubmitInput}
+    >
+      <InputBase
+        inputProps={{ 'aria-label': 'todo item title' }}
+        className={classes.input}
+        value={title}
+        onChange={onChangeInput}
+      />
+      {
+        title ?
+          <Tooltip title="edit todo" placement="top">
+            <IconButton
+              type="submit"
+              aria-label="edit"
+              className={classes.iconButton}
+            >
+              <DoneIcon />
+            </IconButton>
+          </Tooltip>
+          : null
+      }
+      <Tooltip title="cancel edit todo" placement="top">
+        <IconButton
+          type="submit"
+          aria-label="cancel"
+          onClick={onChangeEditable}
+          className={classes.iconButton}
+        >
+          <CancelIcon />
+        </IconButton>
+      </Tooltip>
+    </Paper>
+  )
