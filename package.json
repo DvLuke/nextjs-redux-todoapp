@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "npm run json-server & next dev",
+    "dev-docker": "next dev --hostname 0.0.0.0",
+    "prod-docker": "next start --hostname 0.0.0.0",
     "prod": "next build & npm run json-server & next start",
     "build": "next build",
     "start": "next start",
