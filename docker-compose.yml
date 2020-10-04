@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+    depends_on:
+      - json-server
+    ports:
+      - 127.0.0.1:3000:3000
+
+  json-server:
+    container_name: json-server
+    build:
+      context: .
+      dockerfile: docker/json-server/Dockerfile
+    volumes:
+      - ./db.json:/app/db.json
+    ports:
+      - 127.0.0.1:3001:3001

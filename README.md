@@ -8,3 +8,17 @@ This app using json-server as a data mock
   # for production
   npm run prod
 ```
+
+## Run via docker
+
+Development environment
+
+```bash
+$ docker-compose -f docker-compose.dev.yml up -d --build
+```
+
+Production environment
+
+```bash
+$ docker-compose up --build -d
+```
